@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Glosario visual e interactivo con términos esenciales de trading explicados de forma simple.">
+  <meta name="theme-color" content="#0d1415">
+  <title>Trading en claro — Glosario visual</title>
+  <style>
+    :root {
+      --ink: #0d1415;
+      --panel: #141d1e;
+      --panel-2: #192526;
+      --cream: #f4f0e6;
+      --muted: #9eaaa7;
+      --line: rgba(244, 240, 230, .13);
+      --lime: #c8ff5a;
+      --mint: #62e6b7;
+      --coral: #ff7b6b;
+      --amber: #ffc857;
+      --sky: #79c8ff;
+      --radius: 22px;
+      --shadow: 0 30px 80px rgba(0, 0, 0, .24);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      background:
+        radial-gradient(circle at 12% 5%, rgba(98, 230, 183, .08), transparent 28rem),
+        radial-gradient(circle at 90% 22%, rgba(200, 255, 90, .07), transparent 30rem),
+        var(--ink);
+      color: var(--cream);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+    }
+
+    button, input { font: inherit; }
+    button { color: inherit; }
+    a { color: inherit; }
+    .wrap { width: min(1180px, calc(100% - 40px)); margin-inline: auto; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      border-bottom: 1px solid var(--line);
+      background: rgba(13, 20, 21, .82);
+      backdrop-filter: blur(16px);
+    }
+
+    .topbar .wrap {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand { display: flex; align-items: center; gap: 11px; font-weight: 800; letter-spacing: -.03em; }
+    .brand-mark {
+      width: 34px; height: 34px; display: grid; place-items: center;
+      color: var(--ink); background: var(--lime); border-radius: 10px;
+      box-shadow: 0 0 0 5px rgba(200,255,90,.08);
+    }
+    .brand-mark svg { width: 20px; }
+    .nav-actions { display: flex; align-items: center; gap: 8px; }
+    .nav-link, .ghost-button {
+      border: 0; background: transparent; text-decoration: none; color: var(--muted);
+      padding: 9px 12px; border-radius: 999px; cursor: pointer;
+    }
+    .nav-link:hover, .ghost-button:hover { color: var(--cream); background: rgba(255,255,255,.06); }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 74px 0 56px;
+      border-bottom: 1px solid var(--line);
+    }
+    .hero::after {
+      content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .16;
+      background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 54px 54px; mask-image: linear-gradient(to bottom, black, transparent 90%);
+    }
+    .hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1.06fr .94fr; gap: 64px; align-items: center; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px; margin: 0 0 20px;
+      font-size: .77rem; letter-spacing: .17em; text-transform: uppercase; color: var(--lime); font-weight: 800;
+    }
+    .eyebrow::before { content: ""; width: 34px; height: 1px; background: currentColor; }
+    h1 { font-size: clamp(3.25rem, 8vw, 7.25rem); line-height: .86; letter-spacing: -.075em; margin: 0; max-width: 740px; }
+    h1 .outline { color: transparent; -webkit-text-stroke: 1px rgba(244,240,230,.62); }
+    .hero-copy { color: #bac3c0; font-size: clamp(1rem, 1.8vw, 1.18rem); max-width: 650px; margin: 28px 0; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .primary-button, .secondary-button, .card-button {
+      border: 1px solid transparent; border-radius: 999px; padding: 12px 18px; cursor: pointer;
+      font-weight: 800; transition: transform .2s, background .2s, border-color .2s;
+    }
+    .primary-button { background: var(--lime); color: var(--ink); }
+    .secondary-button { background: rgba(255,255,255,.05); border-color: var(--line); }
+    .primary-button:hover, .secondary-button:hover, .card-button:hover { transform: translateY(-2px); }
+    .secondary-button:hover { border-color: rgba(200,255,90,.5); }
+
+    .market-board {
+      position: relative; min-height: 420px; padding: 22px; border: 1px solid var(--line);
+      border-radius: 30px; background: linear-gradient(155deg, rgba(255,255,255,.075), rgba(255,255,255,.018));
+      box-shadow: var(--shadow); isolation: isolate;
+    }
+    .market-board::before { content: ""; position: absolute; inset: 10px; border: 1px solid rgba(255,255,255,.06); border-radius: 23px; z-index: -1; }
+    .board-head { display: flex; justify-content: space-between; align-items: center; font-size: .8rem; color: var(--muted); }
+    .live { color: var(--mint); display: inline-flex; align-items: center; gap: 7px; font-weight: 700; }
+    .live::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; box-shadow: 0 0 0 5px rgba(98,230,183,.1); animation: pulse 1.8s infinite; }
+    .hero-chart { width: 100%; height: 245px; margin-top: 30px; overflow: visible; }
+    .hero-chart .grid { stroke: rgba(244,240,230,.08); stroke-width: 1; }
+    .hero-chart .trend { fill: none; stroke: var(--lime); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 9px rgba(200,255,90,.35)); stroke-dasharray: 900; stroke-dashoffset: 900; animation: draw 2.2s ease forwards .25s; }
+    .hero-chart .area { fill: url(#areaFill); opacity: 0; animation: fade .8s ease forwards 1.3s; }
+    .price-tag { display: flex; justify-content: space-between; align-items: end; gap: 10px; margin-top: 6px; }
+    .price-big { font-size: 2rem; font-weight: 800; letter-spacing: -.04em; }
+    .price-up { color: var(--mint); font-weight: 800; }
+    .float-note {
+      position: absolute; right: -26px; top: 94px; padding: 12px 15px; border: 1px solid rgba(255,200,87,.35);
+      border-radius: 14px; background: #1e211b; transform: rotate(4deg); color: var(--amber); font-weight: 800; font-size: .8rem;
+    }
+
+    .ticker { overflow: hidden; border-bottom: 1px solid var(--line); background: #101819; }
+    .ticker-track { display: flex; width: max-content; animation: ticker 28s linear infinite; }
+    .ticker-item { display: flex; align-items: center; gap: 9px; white-space: nowrap; padding: 14px 26px; border-right: 1px solid var(--line); color: #b6c0bd; font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; }
+    .ticker-item b { color: var(--cream); }
+    .up { color: var(--mint) !important; } .down { color: var(--coral) !important; }
+
+    .intro { padding: 72px 0 34px; }
+    .section-heading { display: grid; grid-template-columns: .8fr 1.2fr; gap: 50px; align-items: end; margin-bottom: 36px; }
+    .kicker { color: var(--lime); text-transform: uppercase; letter-spacing: .14em; font-size: .72rem; font-weight: 900; }
+    h2 { font-size: clamp(2.2rem, 5vw, 4.2rem); line-height: .98; letter-spacing: -.055em; margin: 9px 0 0; }
+    .section-heading p { color: var(--muted); max-width: 620px; margin: 0; font-size: 1.03rem; }
+
+    .concept-map { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .map-step {
+      min-height: 180px; padding: 22px; border: 1px solid var(--line); border-radius: 20px; background: rgba(255,255,255,.025);
+      position: relative; overflow: hidden;
+    }
+    .map-step::after { content: attr(data-num); position: absolute; right: 10px; bottom: -32px; font-weight: 900; font-size: 6rem; color: rgba(244,240,230,.035); }
+    .map-icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 13px; background: rgba(200,255,90,.1); color: var(--lime); margin-bottom: 18px; }
+    .map-step h3 { margin: 0 0 6px; font-size: 1rem; }
+    .map-step p { margin: 0; color: var(--muted); font-size: .88rem; }
+
+    .glossary { padding: 78px 0; }
+    .toolbar { position: sticky; top: 68px; z-index: 30; padding: 14px 0; background: linear-gradient(var(--ink) 80%, transparent); }
+    .toolbar-inner { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .search-box { position: relative; flex: 1 1 300px; }
+    .search-box svg { position: absolute; width: 18px; left: 17px; top: 50%; transform: translateY(-50%); color: var(--muted); }
+    .search-box input {
+      width: 100%; border: 1px solid var(--line); border-radius: 16px; background: var(--panel); color: var(--cream);
+      padding: 14px 18px 14px 46px; outline: none;
+    }
+    .search-box input:focus { border-color: rgba(200,255,90,.6); box-shadow: 0 0 0 4px rgba(200,255,90,.08); }
+    .random-button { border: 1px solid var(--line); background: var(--panel); border-radius: 16px; padding: 13px 16px; cursor: pointer; }
+    .random-button:hover { border-color: var(--lime); }
+    .filters { display: flex; gap: 8px; flex-wrap: wrap; margin: 17px 0 10px; }
+    .filter {
+      border: 1px solid var(--line); background: transparent; color: var(--muted); border-radius: 999px; padding: 8px 13px;
+      cursor: pointer; font-size: .82rem; font-weight: 750;
+    }
+    .filter:hover, .filter.active { color: var(--ink); background: var(--cream); border-color: var(--cream); }
+    .results-meta { color: var(--muted); font-size: .82rem; margin: 16px 0; }
+
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .term-card {
+      display: flex; flex-direction: column; min-height: 470px; border: 1px solid var(--line); border-radius: var(--radius);
+      background: var(--panel); overflow: hidden; transition: transform .25s, border-color .25s, box-shadow .25s;
+    }
+    .term-card:hover { transform: translateY(-5px); border-color: rgba(200,255,90,.3); box-shadow: 0 24px 55px rgba(0,0,0,.2); }
+    .visual { height: 180px; padding: 17px; background: #11191a; border-bottom: 1px solid var(--line); }
+    .visual svg { width: 100%; height: 100%; display: block; }
+    .term-body { display: flex; flex-direction: column; flex: 1; padding: 21px; }
+    .term-meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; color: var(--muted); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 850; }
+    .new-badge { color: var(--lime); }
+    .term-card h3 { font-size: 1.55rem; letter-spacing: -.035em; line-height: 1.1; margin: 13px 0 9px; }
+    .simple { color: #bdc7c4; font-size: .92rem; margin: 0 0 18px; }
+    .detail { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .35s ease; }
+    .detail > div { overflow: hidden; }
+    .term-card.open .detail { grid-template-rows: 1fr; }
+    .example, .memory-tip { margin: 0 0 12px; padding: 12px 13px; border-radius: 12px; font-size: .82rem; }
+    .example { background: rgba(121,200,255,.08); color: #c8dce8; }
+    .memory-tip { background: rgba(200,255,90,.07); color: #dbe9bd; }
+    .example b, .memory-tip b { color: var(--cream); }
+    .card-button { align-self: flex-start; margin-top: auto; padding: 9px 13px; background: transparent; border-color: var(--line); font-size: .78rem; }
+    .card-button:hover { border-color: var(--lime); }
+    .empty-state { display: none; padding: 54px; text-align: center; border: 1px dashed var(--line); border-radius: var(--radius); color: var(--muted); }
+
+    .quiz-section { padding: 20px 0 90px; }
+    .quiz-shell { border: 1px solid var(--line); border-radius: 30px; background: linear-gradient(145deg, #182223, #111819); overflow: hidden; }
+    .quiz-head { display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: end; padding: 34px; border-bottom: 1px solid var(--line); }
+    .quiz-head h2 { font-size: clamp(2rem, 4vw, 3.5rem); }
+    .quiz-score { color: var(--lime); font-weight: 850; }
+    .quiz-body { padding: 34px; }
+    .quiz-question { font-size: clamp(1.2rem, 2.6vw, 1.75rem); max-width: 760px; margin: 0 0 24px; }
+    .answers { display: grid; grid-template-columns: repeat(2, 1fr); gap: 11px; }
+    .answer {
+      text-align: left; border: 1px solid var(--line); border-radius: 15px; padding: 15px 17px; background: rgba(255,255,255,.025);
+      cursor: pointer; color: #d9dedc; transition: border-color .2s, background .2s;
+    }
+    .answer:hover:not(:disabled) { border-color: var(--lime); }
+    .answer.correct { border-color: var(--mint); background: rgba(98,230,183,.12); }
+    .answer.wrong { border-color: var(--coral); background: rgba(255,123,107,.12); }
+    .quiz-feedback { min-height: 50px; color: var(--muted); margin: 18px 0 0; }
+    .next-question { display: none; margin-top: 12px; }
+
+    .footer { border-top: 1px solid var(--line); padding: 34px 0 45px; }
+    .footer-grid { display: flex; justify-content: space-between; align-items: start; gap: 30px; }
+    .footer p { max-width: 700px; color: var(--muted); font-size: .82rem; margin: 8px 0 0; }
+    .back-top { color: var(--lime); text-decoration: none; font-size: .84rem; font-weight: 800; white-space: nowrap; }
+
+    .toast {
+      position: fixed; left: 50%; bottom: 24px; z-index: 70; transform: translate(-50%, 120px);
+      padding: 11px 16px; border: 1px solid rgba(200,255,90,.35); border-radius: 999px; background: #1d2829; color: var(--cream);
+      box-shadow: var(--shadow); transition: transform .35s ease; font-size: .84rem;
+    }
+    .toast.show { transform: translate(-50%, 0); }
+
+    @keyframes draw { to { stroke-dashoffset: 0; } }
+    @keyframes fade { to { opacity: 1; } }
+    @keyframes pulse { 50% { box-shadow: 0 0 0 9px rgba(98,230,183,0); } }
+    @keyframes ticker { to { transform: translateX(-50%); } }
+
+    @media (max-width: 960px) {
+      .hero-grid, .section-heading { grid-template-columns: 1fr; gap: 34px; }
+      .market-board { min-height: 370px; }
+      .concept-map { grid-template-columns: repeat(2, 1fr); }
+      .cards { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .wrap { width: min(100% - 24px, 1180px); }
+      .nav-link { display: none; }
+      .hero { padding-top: 48px; }
+      .market-board { min-height: 330px; padding: 17px; }
+      .hero-chart { height: 205px; }
+      .float-note { right: 6px; top: 78px; }
+      .concept-map, .cards, .answers { grid-template-columns: 1fr; }
+      .toolbar { top: 66px; }
+      .term-card { min-height: 0; }
+      .quiz-head, .quiz-body { padding: 24px; }
+      .footer-grid { flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body id="inicio">
+  <header class="topbar">
+    <div class="wrap">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 16l5-5 4 3 7-8M16 6h4v4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        Trading en claro
+      </div>
+      <nav class="nav-actions" aria-label="Navegación principal">
+        <a class="nav-link" href="#glosario">Glosario</a>
+        <a class="nav-link" href="#practica">Practica</a>
+        <button class="ghost-button" id="themeHint" type="button" title="Consejo de estudio">¿Cómo estudiar?</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <p class="eyebrow">Guía visual para principiantes</p>
+          <h1>Trading<br><span class="outline">en claro.</span></h1>
+          <p class="hero-copy">Entiende el vocabulario que aparece en gráficos, noticias y plataformas. Sin jerga innecesaria: una idea, un dibujo y un ejemplo cotidiano por concepto.</p>
+          <div class="hero-actions">
+            <a class="primary-button" href="#glosario">Explorar términos</a>
+            <a class="secondary-button" href="#practica">Probar lo aprendido</a>
+          </div>
+        </div>
+        <div class="market-board" aria-label="Gráfico ilustrativo de una tendencia alcista">
+          <div class="board-head"><span>APRENDER / USD</span><span class="live">MERCADO ABIERTO</span></div>
+          <span class="float-note">tendencia alcista ↗</span>
+          <svg class="hero-chart" viewBox="0 0 520 260" role="img" aria-label="Precio que sube con pequeñas correcciones">
+            <defs><linearGradient id="areaFill" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#c8ff5a" stop-opacity=".28"/><stop offset="1" stop-color="#c8ff5a" stop-opacity="0"/></linearGradient></defs>
+            <g class="grid"><path d="M0 20H520M0 80H520M0 140H520M0 200H520M80 0V250M180 0V250M280 0V250M380 0V250M480 0V250"/></g>
+            <path class="area" d="M0 224L48 209 91 216 135 170 182 181 223 143 267 155 310 105 352 119 405 68 451 82 520 29V250H0Z"/>
+            <path class="trend" d="M0 224L48 209 91 216 135 170 182 181 223 143 267 155 310 105 352 119 405 68 451 82 520 29"/>
+            <g fill="#0d1415" stroke="#c8ff5a" stroke-width="3"><circle cx="135" cy="170" r="6"/><circle cx="310" cy="105" r="6"/><circle cx="520" cy="29" r="7"/></g>
+          </svg>
+          <div class="price-tag"><div><div class="price-big">+ conocimiento</div><div style="color:var(--muted);font-size:.75rem">tu activo más importante</div></div><div class="price-up">+100%</div></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="ticker" aria-hidden="true"><div class="ticker-track" id="ticker"></div></div>
+
+    <section class="intro">
+      <div class="wrap">
+        <div class="section-heading">
+          <div><span class="kicker">Antes de empezar</span><h2>Piensa en el mercado como una subasta.</h2></div>
+          <p>Compradores y vendedores proponen precios. Cuando coinciden, ocurre una operación. Todo lo demás —velas, tendencias, spread o volumen— son distintas formas de observar esa conversación.</p>
+        </div>
+        <div class="concept-map">
+          <article class="map-step" data-num="01"><div class="map-icon">↕</div><h3>El precio se mueve</h3><p>Sube cuando domina la demanda y baja cuando domina la oferta.</p></article>
+          <article class="map-step" data-num="02"><div class="map-icon">▥</div><h3>Las velas lo resumen</h3><p>Cada vela cuenta qué pasó con el precio durante un periodo.</p></article>
+          <article class="map-step" data-num="03"><div class="map-icon">◎</div><h3>Tú eliges una orden</h3><p>Decides cuándo entrar, cuánto arriesgar y cuándo salir.</p></article>
+          <article class="map-step" data-num="04"><div class="map-icon">⌁</div><h3>El riesgo manda</h3><p>Ninguna lectura garantiza el futuro. Proteger capital va primero.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="glossary" id="glosario">
+      <div class="wrap">
+        <div class="section-heading">
+          <div><span class="kicker">Glosario ilustrado</span><h2>De cero a hablar “mercado”.</h2></div>
+          <p>Busca una palabra o filtra por tema. Abre cada tarjeta para ver un ejemplo y una regla fácil de recordar.</p>
+        </div>
+        <div class="toolbar">
+          <div class="toolbar-inner">
+            <label class="search-box">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="m16.5 16.5 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              <span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Buscar término</span>
+              <input id="search" type="search" placeholder="Busca: soporte, stop loss, ballena…" autocomplete="off">
+            </label>
+            <button class="random-button" id="randomTerm" type="button">↻ Sorpréndeme</button>
+          </div>
+          <div class="filters" id="filters" aria-label="Filtros por categoría"></div>
+        </div>
+        <div class="results-meta" id="resultsMeta" aria-live="polite"></div>
+        <div class="cards" id="cards"></div>
+        <div class="empty-state" id="emptyState">No encontré ese término. Prueba con otra palabra o selecciona “Todos”.</div>
+      </div>
+    </section>
+
+    <section class="quiz-section" id="practica">
+      <div class="wrap">
+        <div class="quiz-shell">
+          <div class="quiz-head"><div><span class="kicker">Chequeo rápido</span><h2>¿Ya lo tienes?</h2></div><div class="quiz-score" id="quizScore">0 aciertos</div></div>
+          <div class="quiz-body">
+            <p class="quiz-question" id="quizQuestion"></p>
+            <div class="answers" id="answers"></div>
+            <p class="quiz-feedback" id="quizFeedback" aria-live="polite"></p>
+            <button class="primary-button next-question" id="nextQuestion" type="button">Siguiente pregunta →</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-grid">
+      <div><strong>Trading en claro</strong><p>Contenido educativo, no asesoría financiera. Operar implica riesgo y puedes perder dinero. Practica primero y nunca arriesgues capital que necesites.</p></div>
+      <a class="back-top" href="#inicio">Volver arriba ↑</a>
+    </div>
+  </footer>
+  <div class="toast" id="toast" role="status"></div>
+
+  <script>
+    const terms = [
+      {term:'Toros', category:'Mercado', visual:'bull', original:true, simple:'Así se llama a quienes esperan que los precios suban y compran con optimismo.', example:'Si muchas personas compran porque creen que Bitcoin seguirá subiendo, el mercado se siente “toro”.', tip:'El toro ataca levantando los cuernos: precio hacia arriba.'},
+      {term:'Osos', category:'Mercado', visual:'bear', original:true, simple:'Son quienes esperan que los precios bajen, venden o buscan beneficiarse de la caída.', example:'Si predominan el miedo y las ventas durante semanas, hablamos de un mercado “oso”.', tip:'El oso golpea con la garra hacia abajo: precio a la baja.'},
+      {term:'Cisne negro', category:'Mercado', visual:'swan', original:true, simple:'Evento muy raro e inesperado que sacude fuertemente al mercado.', example:'Una crisis sanitaria global o la quiebra repentina de una empresa sistémica puede causar caídas bruscas.', tip:'Es improbable, impactante y parece obvio solo después de ocurrir.'},
+      {term:'Rebote del gato muerto', category:'Mercado', visual:'deadcat', original:true, simple:'Subida breve dentro de una caída fuerte; parece recuperación, pero luego el precio continúa bajando.', example:'Un activo cae de 100 a 60, rebota a 70 y después baja a 45.', tip:'No todo rebote significa que la tendencia cambió.'},
+      {term:'Ballenas', category:'Participantes', visual:'whale', original:true, simple:'Personas o entidades con tanto capital que una operación grande puede mover el precio.', example:'Una billetera vende una enorme cantidad de un token poco líquido y provoca una caída rápida.', tip:'Una ballena hace olas; en mercados pequeños, sus órdenes se sienten más.'},
+      {term:'Liquidación', category:'Riesgo', visual:'liquidation', original:true, simple:'Cierre forzado de una posición apalancada cuando la pérdida consume el margen disponible.', example:'Abres una operación con x10; una caída pequeña basta para que la plataforma la cierre y pierdas el margen.', tip:'No es simplemente llegar a cero: es perder el margen que sostenía la posición.'},
+      {term:'Soporte', category:'Análisis', visual:'support', original:true, simple:'Zona donde antes aparecieron compradores y la caída tendió a frenarse.', example:'El precio ha rebotado varias veces cerca de $50; esa franja puede actuar como soporte.', tip:'Es un piso posible, no una pared garantizada.'},
+      {term:'Resistencia', category:'Análisis', visual:'resistance', original:true, simple:'Zona donde antes aparecieron vendedores y la subida tendió a frenarse.', example:'Cada vez que el precio se acerca a $100, retrocede: allí puede haber resistencia.', tip:'Es un techo posible. Si se rompe, a veces cambia de función.'},
+      {term:'Pump and dump', category:'Mercado', visual:'pump', original:true, simple:'Manipulación: se infla el precio con promoción y compras coordinadas, luego los impulsores venden de golpe.', example:'Un grupo promociona un token pequeño, atrae compradores y vende arriba, dejando a otros con pérdidas.', tip:'Subidas verticales sin fundamento + presión por comprar = alerta.'},
+      {term:'Apalancamiento', category:'Riesgo', visual:'leverage', original:true, simple:'Capital prestado que multiplica el tamaño de tu operación y también sus ganancias o pérdidas.', example:'Con $100 y apalancamiento x5 controlas $500; un movimiento del 10% equivale a $50, antes de costes.', tip:'El multiplicador funciona en ambas direcciones.'},
+      {term:'Spread', category:'Órdenes', visual:'spread', original:true, simple:'Diferencia entre el mejor precio de compra y el mejor precio de venta.', example:'Si puedes comprar a $101 y vender a $100, el spread es $1.', tip:'Es un coste implícito: empiezas la operación ligeramente en negativo.'},
+      {term:'Stop loss', category:'Riesgo', visual:'stop', original:true, simple:'Orden que busca cerrar una operación al alcanzar un nivel de pérdida definido.', example:'Compras a $100 y colocas stop loss en $95 para limitar el daño aproximado.', tip:'Decide dónde salir antes de que el miedo decida por ti.'},
+      {term:'Take profit', category:'Órdenes', visual:'take', original:true, simple:'Orden que cierra una operación automáticamente al llegar a tu objetivo de ganancia.', example:'Compras a $100 y programas la venta en $115 si el precio llega allí.', tip:'Convierte “quiero ganar más” en un plan concreto.'},
+      {term:'Exchange', category:'Plataforma', visual:'exchange', original:true, simple:'Plataforma donde se compran, venden o intercambian activos.', example:'En un exchange colocas una orden para cambiar dólares por acciones o criptomonedas.', tip:'Compara seguridad, regulación, comisiones, liquidez y custodia.'},
+      {term:'Análisis fundamental', category:'Análisis', visual:'fundamental', original:true, simple:'Estudia el valor de un activo usando negocio, finanzas, economía, equipo y contexto.', example:'Para una empresa revisas ingresos, deuda, competencia y crecimiento; no solo el gráfico.', tip:'Pregunta: “¿Qué estoy comprando y cuánto podría valer?”'},
+      {term:'Análisis técnico', category:'Análisis', visual:'technical', original:true, simple:'Estudia precio, volumen y patrones del gráfico para plantear escenarios.', example:'Observas una tendencia y zonas de soporte para planear entrada, salida e invalidación.', tip:'Trabaja con probabilidades; no adivina el futuro.'},
+      {term:'Vela japonesa', category:'Análisis', visual:'candle', simple:'Dibujo que resume apertura, cierre, máximo y mínimo del precio en un periodo.', example:'Una vela de 1 hora cuenta todo lo que hizo el precio durante esa hora.', tip:'El cuerpo muestra apertura/cierre; las mechas, los extremos.'},
+      {term:'Volumen', category:'Análisis', visual:'volume', simple:'Cantidad negociada durante un periodo. Ayuda a medir la participación detrás de un movimiento.', example:'Una ruptura con mucho volumen suele tener más interés que una con actividad mínima.', tip:'Precio dice qué pasó; volumen sugiere cuánta fuerza participó.'},
+      {term:'Tendencia', category:'Análisis', visual:'trend', simple:'Dirección general del precio: alcista, bajista o lateral.', example:'Máximos y mínimos cada vez más altos suelen formar una tendencia alcista.', tip:'No confundas un movimiento pequeño con la dirección del camino completo.'},
+      {term:'Volatilidad', category:'Riesgo', visual:'volatility', simple:'Qué tan rápido y cuánto cambia el precio. Más oscilación significa más incertidumbre y riesgo.', example:'Un activo que pasa de +8% a −7% en un día es más volátil que uno que se mueve 0.5%.', tip:'Volatilidad no significa solo caída: significa movimientos amplios.'},
+      {term:'Liquidez', category:'Mercado', visual:'liquidity', simple:'Facilidad para comprar o vender sin mover demasiado el precio.', example:'Una acción muy negociada permite vender rápido; un token pequeño puede obligarte a aceptar peor precio.', tip:'Más liquidez suele significar spreads menores y ejecuciones más fáciles.'},
+      {term:'Orden de mercado', category:'Órdenes', visual:'marketorder', simple:'Orden para comprar o vender de inmediato al mejor precio disponible.', example:'Pulsas comprar y aceptas los precios disponibles en ese momento.', tip:'Prioriza rapidez, no un precio exacto.'},
+      {term:'Orden límite', category:'Órdenes', visual:'limitorder', simple:'Orden que solo se ejecuta al precio que eliges o a uno mejor.', example:'El precio está en $105, pero dejas una compra límite en $100.', tip:'Controlas el precio, pero quizá la orden nunca se ejecute.'},
+      {term:'Posición larga (long)', category:'Órdenes', visual:'long', simple:'Operación que gana si el precio sube.', example:'Compras a $40 esperando vender después a $50.', tip:'Long = tu escenario principal apunta hacia arriba.'},
+      {term:'Posición corta (short)', category:'Órdenes', visual:'short', simple:'Operación que busca ganar si el precio baja; normalmente implica vender algo prestado o usar derivados.', example:'Abres un corto a $80 y lo cierras a $65: la diferencia, menos costes, es tu ganancia.', tip:'Tiene riesgos especiales: una subida puede generar pérdidas muy grandes.'},
+      {term:'Margen', category:'Riesgo', visual:'margin', simple:'Dinero que dejas como garantía para mantener una operación apalancada.', example:'Depositas $200 de margen para controlar una posición mayor.', tip:'El margen no es una comisión; es el colchón que respalda la posición.'},
+      {term:'Margin call', category:'Riesgo', visual:'margincall', simple:'Aviso de que tu garantía ya no alcanza y debes aportar fondos o reducir la posición.', example:'El mercado va contra ti y el bróker pide más margen antes de cerrar operaciones.', tip:'Es la alarma previa a una posible liquidación.'},
+      {term:'Slippage', category:'Órdenes', visual:'slippage', simple:'Diferencia entre el precio esperado y el precio real de ejecución.', example:'Envías una compra a $100 durante alta volatilidad, pero termina ejecutándose a $101.40.', tip:'Aumenta cuando hay poca liquidez o movimientos rápidos.'},
+      {term:'Capitalización de mercado', category:'Fundamentos', visual:'marketcap', simple:'Valor total aproximado de un activo: precio por cantidad de unidades en circulación.', example:'10 millones de acciones × $20 = $200 millones de capitalización.', tip:'Precio unitario bajo no significa que un activo sea “barato”.'},
+      {term:'Riesgo / beneficio', category:'Riesgo', visual:'riskreward', simple:'Comparación entre cuánto estás dispuesto a perder y cuánto esperas ganar.', example:'Arriesgar $10 para intentar ganar $20 es una relación 1:2.', tip:'Puedes fallar varias veces y sobrevivir si controlas tamaño y relación.'},
+      {term:'Diversificación', category:'Riesgo', visual:'diversification', simple:'Repartir el capital entre activos o ideas distintas para no depender de una sola.', example:'En lugar de poner todo en una empresa, distribuyes entre sectores y tipos de activo.', tip:'Diversificar reduce ciertos riesgos; no elimina todos.'},
+      {term:'FOMO', category:'Psicología', visual:'fomo', simple:'Miedo a quedarse fuera que empuja a comprar por impulso después de una subida.', example:'Ves un activo subir 40%, temes perder la oportunidad y compras sin plan cerca del máximo.', tip:'La urgencia artificial es señal para pausar, no para acelerar.'},
+      {term:'FUD', category:'Psicología', visual:'fud', simple:'Miedo, incertidumbre y duda que pueden provocar decisiones emocionales o rumores bajistas.', example:'Un rumor sin confirmar se comparte masivamente y muchos venden por pánico.', tip:'Separa el dato verificable de la emoción que provoca.'},
+      {term:'Bull trap', category:'Mercado', visual:'bulltrap', simple:'Falsa ruptura alcista que atrae compradores y luego vuelve a caer.', example:'El precio supera una resistencia por poco, muchos compran y enseguida regresa debajo.', tip:'Una ruptura necesita contexto y confirmación, no solo tocar una línea.'},
+      {term:'Bear trap', category:'Mercado', visual:'beartrap', simple:'Falsa ruptura bajista que atrapa vendedores y luego rebota con fuerza.', example:'El precio perfora soporte, activa ventas y poco después recupera la zona.', tip:'Evita reaccionar a una única vela sin confirmar.'},
+      {term:'RSI', category:'Indicadores', visual:'rsi', simple:'Indicador de impulso entre 0 y 100 que compara la fuerza de movimientos recientes.', example:'Un RSI alto indica impulso comprador fuerte, pero no garantiza una caída inmediata.', tip:'“Sobrecomprado” no significa automáticamente “vende”.'},
+      {term:'Media móvil', category:'Indicadores', visual:'ma', simple:'Promedio del precio que se actualiza y suaviza el ruido para mostrar mejor la dirección.', example:'La media de 20 periodos promedia las últimas 20 velas y cambia con cada vela nueva.', tip:'Reacciona con retraso porque resume datos pasados.'}
+    ];
+
+    const palette = { green:'#c8ff5a', mint:'#62e6b7', red:'#ff7b6b', amber:'#ffc857', sky:'#79c8ff', dim:'#334142', ink:'#0d1415', cream:'#f4f0e6' };
+    const svgBase = (content, label) => `<svg viewBox="0 0 320 145" role="img" aria-label="${label}"><g fill="none" stroke="${palette.dim}" stroke-width="1"><path d="M12 26H308M12 72H308M12 118H308" stroke-dasharray="3 5"/></g>${content}</svg>`;
+    const line = (pts, color=palette.green, width=4) => `<polyline points="${pts}" fill="none" stroke="${color}" stroke-width="${width}" stroke-linecap="round" stroke-linejoin="round"/>`;
+    const label = (x,y,text,color=palette.cream) => `<text x="${x}" y="${y}" fill="${color}" font-size="10" font-weight="800" font-family="system-ui">${text}</text>`;
+    const dot = (x,y,color=palette.green,r=5) => `<circle cx="${x}" cy="${y}" r="${r}" fill="${palette.ink}" stroke="${color}" stroke-width="3"/>`;
+    const bar = (x,y,w,h,color) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="3" fill="${color}" opacity=".9"/>`;
+
+    function visual(kind, term) {
+      const g = palette.green, r = palette.red, a = palette.amber, b = palette.sky, m = palette.mint;
+      const visuals = {
+        bull: line('18,120 58,108 94,112 132,82 168,88 210,51 248,62 302,18',g)+dot(302,18,g,6)+label(225,27,'COMPRADORES ↑',g),
+        bear: line('18,20 55,38 95,31 132,66 170,57 213,96 253,88 302,127',r)+dot(302,127,r,6)+label(20,17,'VENDEDORES ↓',r),
+        swan: line('18,35 64,33 105,39 148,36 188,42 220,39 244,119 270,86 302,128',r)+`<path d="M231 48l13 72 17-36" stroke="${r}" stroke-width="2" stroke-dasharray="4 4"/>`+label(203,25,'EVENTO IMPREVISTO',a),
+        deadcat: line('18,25 75,55 126,108 169,72 206,91 248,113 302,128',r)+dot(169,72,a)+label(142,55,'REBOTE',a),
+        whale: `${bar(28,96,18,30,b)}${bar(54,82,18,44,b)}${bar(80,101,18,25,b)}${bar(106,92,18,34,b)}${bar(222,25,54,101,a)}${line('18,65 70,61 125,64 176,58 222,45 276,93 302,88',g)}`+label(211,18,'ORDEN GRANDE',a),
+        liquidation: line('20,24 70,34 115,52 158,61 195,92 230,104 300,127',r)+`<path d="M196 15V130" stroke="${a}" stroke-width="2" stroke-dasharray="5 5"/>`+label(203,29,'LIQUIDACIÓN',a)+`<path d="M188 82l16 16M204 82l-16 16" stroke="${r}" stroke-width="4"/>`,
+        support: line('18,42 58,65 96,108 134,83 176,111 216,85 257,109 302,75',g)+`<path d="M12 113H308" stroke="${a}" stroke-width="3"/>`+label(18,132,'ZONA DE SOPORTE',a),
+        resistance: line('18,103 59,77 98,35 139,58 176,32 217,57 258,34 302,70',r)+`<path d="M12 29H308" stroke="${a}" stroke-width="3"/>`+label(18,20,'ZONA DE RESISTENCIA',a),
+        pump: line('18,118 65,115 112,110 151,106 185,22 215,36 239,117 302,128',r)+`<path d="M170 106L185 22" stroke="${g}" stroke-width="7"/><path d="M218 37L239 117" stroke="${r}" stroke-width="7"/>`+label(157,16,'PUMP',g)+label(238,108,'DUMP',r),
+        leverage: `${bar(35,89,43,31,b)}${bar(139,50,43,70,a)}${bar(243,18,43,102,r)}${label(39,81,'x1',b)}${label(143,42,'x5',a)}${label(246,14,'x10',r)}`+`<path d="M18 121H303" stroke="${palette.dim}"/>`,
+        spread: `${bar(35,57,95,35,b)}${bar(190,57,95,35,a)}${label(66,50,'VENDE $100',b)}${label(208,50,'COMPRA $101',a)}<path d="M135 74H185M175 66l10 8-10 8" stroke="${g}" stroke-width="2"/>${label(145,106,'$1',g)}`,
+        stop: line('18,28 64,45 105,39 146,73 184,66 222,108 300,119',r)+`<path d="M12 94H308" stroke="${a}" stroke-width="3" stroke-dasharray="6 5"/>`+label(18,88,'STOP LOSS',a)+dot(211,94,a),
+        take: line('18,119 62,104 104,110 147,79 190,86 232,50 302,28',g)+`<path d="M12 47H308" stroke="${a}" stroke-width="3" stroke-dasharray="6 5"/>`+label(18,40,'TAKE PROFIT',a)+dot(236,47,a),
+        exchange: `${bar(34,38,96,68,b)}${bar(190,38,96,68,g)}${label(55,73,'ACTIVO A',palette.ink)}${label(210,73,'ACTIVO B',palette.ink)}<path d="M139 56H181M181 56l-10-8M181 56l-10 8M181 89H139M139 89l10-8M139 89l10 8" stroke="${a}" stroke-width="3"/>`,
+        fundamental: `${bar(32,83,32,38,b)}${bar(76,62,32,59,m)}${bar(120,40,32,81,g)}<path d="M194 113l18-26 22 10 28-51 29-14" stroke="${a}" stroke-width="4"/>${dot(291,32,a)}${label(189,130,'NEGOCIO + DATOS',a)}`,
+        technical: `${line('18,113 55,96 93,102 128,68 169,79 207,45 249,54 302,22',g)}<path d="M26 121L286 29" stroke="${a}" stroke-width="2" stroke-dasharray="7 5"/>${label(20,20,'PRECIO + PATRONES',a)}`,
+        candle: `<g stroke-width="3"><path d="M75 20V127M54 48H96V101H54Z" stroke="${g}" fill="rgba(200,255,90,.12)"/><path d="M160 13V132M139 37H181V88H139Z" stroke="${r}" fill="rgba(255,123,107,.12)"/><path d="M245 29V121M224 65H266V105H224Z" stroke="${g}" fill="rgba(200,255,90,.12)"/></g>${label(48,140,'APERTURA • CIERRE • EXTREMOS',a)}`,
+        volume: `${bar(25,98,22,24,b)}${bar(57,80,22,42,b)}${bar(89,93,22,29,b)}${bar(121,52,22,70,g)}${bar(153,31,22,91,g)}${bar(185,70,22,52,b)}${bar(217,42,22,80,a)}${bar(249,18,22,104,a)}${bar(281,58,22,64,b)}${label(22,139,'ACTIVIDAD NEGOCIADA',a)}`,
+        trend: `${line('20,116 59,97 93,104 134,76 170,83 213,51 252,59 301,26',g)}${dot(59,97,g)}${dot(134,76,g)}${dot(213,51,g)}${label(190,20,'MÁXIMOS MÁS ALTOS',g)}`,
+        volatility: `${line('18,75 46,25 72,120 101,42 128,108 158,20 187,125 216,33 245,112 274,29 302,88',r,3)}${label(18,140,'MOVIMIENTOS AMPLIOS',a)}`,
+        liquidity: `${bar(24,95,20,27,b)}${bar(50,78,20,44,b)}${bar(76,62,20,60,m)}${bar(102,43,20,79,g)}${bar(198,43,20,79,g)}${bar(224,62,20,60,m)}${bar(250,78,20,44,b)}${bar(276,95,20,27,b)}${label(122,76,'MUCHAS',g)}${label(118,90,'ÓRDENES',g)}`,
+        marketorder: `${line('18,104 65,101 109,91 151,69 196,61 239,40 302,31',g)}${dot(196,61,a,7)}${label(175,84,'EJECUTA YA',a)}<path d="M196 17V51" stroke="${a}" stroke-width="3"/>`,
+        limitorder: `${line('18,112 66,101 112,88 157,76 204,51 250,42 302,25',g)}<path d="M12 77H308" stroke="${a}" stroke-width="3" stroke-dasharray="6 5"/>${dot(157,77,a,7)}${label(18,68,'PRECIO ELEGIDO',a)}`,
+        long: `${line('18,119 62,105 108,109 154,82 198,73 247,46 302,23',g)}<path d="M267 56L302 23 293 58" stroke="${g}" stroke-width="5"/>${label(18,24,'GANAS SI SUBE',g)}`,
+        short: `${line('18,23 62,42 107,36 153,65 198,71 247,101 302,120',r)}<path d="M267 88L302 120 292 86" stroke="${r}" stroke-width="5"/>${label(18,137,'GANAS SI BAJA',r)}`,
+        margin: `${bar(30,88,84,34,b)}${bar(118,51,84,71,a)}${bar(206,20,84,102,g)}${label(46,108,'TU $',palette.ink)}${label(128,45,'PRÉSTAMO',a)}${label(214,14,'POSICIÓN',g)}`,
+        margincall: `${line('18,27 62,39 108,51 153,73 198,85 243,109 302,120',r)}<path d="M12 95H308" stroke="${a}" stroke-width="3" stroke-dasharray="5 5"/>${label(18,89,'ALERTA DE MARGEN',a)}<circle cx="255" cy="42" r="20" stroke="${a}" stroke-width="3"/><path d="M255 31v14M255 52v2" stroke="${a}" stroke-width="4"/>`,
+        slippage: `${bar(44,42,83,42,b)}${bar(194,73,83,42,r)}<path d="M130 63H187" stroke="${a}" stroke-width="3" stroke-dasharray="5 5"/>${label(50,35,'ESPERADO',b)}${label(203,134,'REAL',r)}${label(137,54,'DESLIZ',a)}`,
+        marketcap: `${bar(26,92,35,30,b)}${bar(74,76,35,46,b)}${bar(122,60,35,62,m)}${bar(170,44,35,78,m)}${bar(218,28,35,94,g)}${bar(266,12,35,110,g)}${label(29,139,'PRECIO × UNIDADES',a)}`,
+        riskreward: `${bar(40,74,89,48,r)}${bar(191,28,89,94,g)}${label(60,67,'RIESGO 1',r)}${label(207,20,'BENEFICIO 2',g)}<path d="M146 30V122" stroke="${palette.dim}" stroke-width="2"/>`,
+        diversification: '',
+        fomo: `${line('18,119 68,116 112,108 152,92 192,55 228,17 262,38 302,67',a)}${dot(228,17,r,7)}${label(179,12,'¡COMPRAR YA!',r)}<path d="M227 25V45" stroke="${r}" stroke-width="2" stroke-dasharray="3 3"/>`,
+        fud: `${line('18,35 60,42 102,38 144,64 187,58 229,101 271,88 302,121',r)}<path d="M37 19l8 12M79 20l-5 13M122 18l7 13" stroke="${a}" stroke-width="3"/>${label(174,137,'MIEDO + RUMORES',a)}`,
+        bulltrap: `${line('18,116 61,101 104,91 147,70 187,49 226,25 255,67 302,104',r)}<path d="M12 52H308" stroke="${a}" stroke-width="2" stroke-dasharray="5 5"/>${dot(220,29,a)}${label(18,45,'FALSA RUPTURA ↑',a)}`,
+        beartrap: `${line('18,29 61,44 104,57 147,75 187,96 226,122 255,77 302,42',g)}<path d="M12 94H308" stroke="${a}" stroke-width="2" stroke-dasharray="5 5"/>${dot(222,117,a)}${label(18,88,'FALSA RUPTURA ↓',a)}`,
+        rsi: `${line('18,96 53,82 88,92 123,59 158,72 193,37 228,49 263,30 302,59',b,3)}<path d="M12 33H308M12 101H308" stroke="${a}" stroke-width="2" stroke-dasharray="5 5"/>${label(18,27,'70',a)}${label(18,116,'30',a)}${label(264,139,'RSI',b)}`,
+        ma: `${line('18,110 51,88 82,97 115,66 149,78 182,46 216,63 250,35 302,48',b,2)}<path d="M18 106C70 98 102 86 149 73S242 52 302 42" stroke="${g}" stroke-width="5" fill="none"/>${label(176,127,'PRECIO SUAVIZADO',g)}`
+      };
+      visuals.diversification = `<circle cx="160" cy="72" r="20" fill="${g}" opacity=".9"/><circle cx="84" cy="42" r="28" fill="${b}" opacity=".75"/><circle cx="237" cy="38" r="23" fill="${a}" opacity=".8"/><circle cx="81" cy="111" r="18" fill="${r}" opacity=".75"/><circle cx="245" cy="106" r="31" fill="${m}" opacity=".7"/><path d="M101 49l40 17M181 63l35-17M144 88l-46 17M177 87l42 14" stroke="${palette.cream}" stroke-width="2" opacity=".5"/>${label(122,137,'NO TODO EN UNO',a)}`;
+      return svgBase(visuals[kind] || visuals.trend, `Ilustración de ${term}`);
+    }
+
+    const cards = document.querySelector('#cards');
+    const filters = document.querySelector('#filters');
+    const search = document.querySelector('#search');
+    const resultsMeta = document.querySelector('#resultsMeta');
+    const emptyState = document.querySelector('#emptyState');
+    let activeCategory = 'Todos';
+
+    function renderFilters() {
+      const cats = ['Todos', ...new Set(terms.map(t => t.category))];
+      filters.innerHTML = cats.map(cat => `<button class="filter${cat === activeCategory ? ' active' : ''}" type="button" data-category="${cat}">${cat}</button>`).join('');
+    }
+
+    function normalize(text) { return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase(); }
+
+    function renderCards() {
+      const q = normalize(search.value.trim());
+      const shown = terms.filter(t => (activeCategory === 'Todos' || t.category === activeCategory) && (!q || normalize(`${t.term} ${t.simple} ${t.category}`).includes(q)));
+      cards.innerHTML = shown.map((t) => {
+        const index = terms.indexOf(t);
+        return `<article class="term-card" id="term-${index}" data-index="${index}">
+          <div class="visual">${visual(t.visual, t.term)}</div>
+          <div class="term-body">
+            <div class="term-meta"><span>${t.category}</span>${t.original ? '<span>De tu lista</span>' : '<span class="new-badge">+ extra</span>'}</div>
+            <h3>${t.term}</h3><p class="simple">${t.simple}</p>
+            <div class="detail"><div><p class="example"><b>Ejemplo:</b> ${t.example}</p><p class="memory-tip"><b>Para recordar:</b> ${t.tip}</p></div></div>
+            <button class="card-button" type="button" aria-expanded="false">Ver ejemplo +</button>
+          </div>
+        </article>`;
+      }).join('');
+      resultsMeta.textContent = `${shown.length} de ${terms.length} conceptos`;
+      emptyState.style.display = shown.length ? 'none' : 'block';
+    }
+
+    filters.addEventListener('click', (e) => {
+      const button = e.target.closest('[data-category]'); if (!button) return;
+      activeCategory = button.dataset.category; renderFilters(); renderCards();
+    });
+    search.addEventListener('input', renderCards);
+    cards.addEventListener('click', (e) => {
+      const button = e.target.closest('.card-button'); if (!button) return;
+      const card = button.closest('.term-card'); const open = card.classList.toggle('open');
+      button.setAttribute('aria-expanded', String(open)); button.textContent = open ? 'Ocultar ejemplo −' : 'Ver ejemplo +';
+    });
+
+    const tickerItems = [
+      ['TOROS','compran ↑','up'],['OSOS','venden ↓','down'],['SOPORTE','posible piso',''],['RESISTENCIA','posible techo',''],
+      ['STOP LOSS','limita pérdida','down'],['TAKE PROFIT','asegura objetivo','up'],['VOLUMEN','mide actividad',''],['RIESGO','siempre presente','down']
+    ];
+    document.querySelector('#ticker').innerHTML = [...tickerItems, ...tickerItems].map(x => `<span class="ticker-item"><b>${x[0]}</b><span class="${x[2]}">${x[1]}</span></span>`).join('');
+
+    const toast = document.querySelector('#toast');
+    function showToast(message) { toast.textContent = message; toast.classList.add('show'); clearTimeout(showToast.timer); showToast.timer = setTimeout(() => toast.classList.remove('show'), 3200); }
+    document.querySelector('#themeHint').addEventListener('click', () => showToast('Estudia 5 términos, explícalos en voz alta y luego haz el mini test.'));
+    document.querySelector('#randomTerm').addEventListener('click', () => {
+      search.value = ''; activeCategory = 'Todos'; renderFilters(); renderCards();
+      const i = Math.floor(Math.random() * terms.length); const card = document.querySelector(`#term-${i}`);
+      card.classList.add('open'); const btn = card.querySelector('.card-button'); btn.setAttribute('aria-expanded','true'); btn.textContent = 'Ocultar ejemplo −';
+      card.scrollIntoView({behavior:'smooth', block:'center'}); setTimeout(() => card.animate([{outline:'2px solid #c8ff5a'},{outline:'2px solid transparent'}],{duration:1200}), 450);
+    });
+
+    const quizPool = [
+      {q:'¿Qué término describe una zona donde una caída podría frenarse?', a:'Soporte', options:['Soporte','Spread','FOMO','Apalancamiento'], why:'El soporte es una zona donde antes apareció suficiente demanda para frenar el descenso.'},
+      {q:'Quieres limitar automáticamente una pérdida. ¿Qué orden usarías?', a:'Stop loss', options:['Take profit','Orden de mercado','Stop loss','Long'], why:'El stop loss busca cerrar la operación si alcanza el nivel de pérdida definido.'},
+      {q:'¿Qué ocurre cuando usas apalancamiento?', a:'Se multiplican ganancias y pérdidas', options:['Solo crecen las ganancias','Se elimina el riesgo','Se multiplican ganancias y pérdidas','El spread desaparece'], why:'El apalancamiento amplifica el tamaño de la posición en ambas direcciones.'},
+      {q:'Una subida breve ocurre dentro de una gran tendencia bajista y luego continúa la caída. Es…', a:'Rebote del gato muerto', options:['Mercado toro','Rebote del gato muerto','Take profit','Media móvil'], why:'Ese rebote temporal puede parecer recuperación sin ser un cambio real de tendencia.'},
+      {q:'¿Cuál orden prioriza un precio concreto, aunque quizá nunca se ejecute?', a:'Orden límite', options:['Orden de mercado','Liquidación','Orden límite','Margin call'], why:'La orden límite controla el precio; a cambio, no asegura ejecución.'},
+      {q:'¿Qué mide el spread?', a:'La diferencia entre compra y venta', options:['El tamaño de una empresa','La diferencia entre compra y venta','La velocidad de Internet','La deuda del bróker'], why:'El spread separa el mejor precio comprador del mejor precio vendedor.'},
+      {q:'Comprar impulsivamente porque todos hablan de una subida es…', a:'FOMO', options:['FOMO','FUD','Liquidez','Diversificación'], why:'FOMO es el miedo a quedarse fuera de una oportunidad.'}
+    ];
+    let quizIndex = 0, score = 0, answered = false;
+    function loadQuestion() {
+      answered = false; const item = quizPool[quizIndex % quizPool.length];
+      document.querySelector('#quizQuestion').textContent = item.q;
+      document.querySelector('#answers').innerHTML = item.options.map(opt => `<button class="answer" type="button" data-answer="${opt}">${opt}</button>`).join('');
+      document.querySelector('#quizFeedback').textContent = 'Elige una respuesta.';
+      document.querySelector('#nextQuestion').style.display = 'none';
+    }
+    document.querySelector('#answers').addEventListener('click', (e) => {
+      const btn = e.target.closest('.answer'); if (!btn || answered) return; answered = true;
+      const item = quizPool[quizIndex % quizPool.length]; const correct = btn.dataset.answer === item.a;
+      if (correct) score++;
+      document.querySelectorAll('.answer').forEach(bn => { bn.disabled = true; if (bn.dataset.answer === item.a) bn.classList.add('correct'); });
+      if (!correct) btn.classList.add('wrong');
+      document.querySelector('#quizFeedback').innerHTML = `<strong style="color:${correct ? 'var(--mint)' : 'var(--coral)'}">${correct ? '¡Correcto!' : 'Casi.'}</strong> ${item.why}`;
+      document.querySelector('#quizScore').textContent = `${score} ${score === 1 ? 'acierto' : 'aciertos'}`;
+      document.querySelector('#nextQuestion').style.display = 'inline-block';
+    });
+    document.querySelector('#nextQuestion').addEventListener('click', () => { quizIndex = (quizIndex + 1) % quizPool.length; loadQuestion(); });
+
+    renderFilters(); renderCards(); loadQuestion();
+  </script>
+</body>
+</html>
